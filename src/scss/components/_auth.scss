@@ -1,0 +1,159 @@
+.login-block {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  h1 {
+    padding-bottom: 30px;
+  }
+
+  &__form {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04204);
+    padding: 54px 45px 45px;
+
+    .login {
+      input {
+        padding: 19px 0 18px 18px;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #dddddd;
+      }
+
+      &__email,
+      &__password,
+      &__name {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        position: relative;
+      }
+
+      &__password {
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      .error {
+        position: absolute;
+        bottom: 0;
+        color: red;
+        font-size: 12px;
+      }
+    }
+
+    .control {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+
+      .remember {
+        #remember {
+          display: none;
+
+          &:checked + label {
+            background-color: #109df2;
+          }
+        }
+        .check {
+          width: 20px;
+          height: 20px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #109df2;
+          margin-right: 10px;
+
+          svg {
+            width: 15px;
+            height: 13px;
+          }
+        }
+      }
+    }
+
+    .btn {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+      button {
+        width: 100%;
+        padding: 20px 0;
+        background-color: #109df2;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 20px 0;
+      }
+    }
+    i {
+      padding-top: 134px;
+      display: inline-flex;
+    }
+    h2 {
+      padding: 10px;
+      padding-bottom: 160px;
+    }
+
+    .to-return {
+      background-color: #109df2;
+      color: #fff;
+      padding: 20px 0;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .error {
+      bottom: 0;
+      color: red;
+      font-size: 12px;
+      height: 15px;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    &__form {
+      width: 300px;
+      padding: 20px;
+
+      .login {
+        input {
+          padding: 10px 0 10px 12px;
+          font-size: 11px;
+        }
+
+        &__email,
+        &__password,
+        &__name {
+          margin-bottom: 0;
+        }
+
+        .error {
+          position: absolute;
+          bottom: 4px;
+          color: red;
+          font-size: 8px;
+        }
+      }
+
+      .btn {
+        button {
+          font-size: 11px;
+          padding: 10px 0;
+          margin: 10px 0 15px 0;
+        }
+      }
+
+      .error {
+        font-size: 9px;
+        height: 11px;
+      }
+    }
+  }
+}

@@ -1,0 +1,686 @@
+.container {
+  header {
+    .city_search {
+      text-align: center;
+      padding: 20px 0 12px 0;
+      height: 97px;
+
+      input {
+        padding: 13px 0 13px 18px;
+        width: 400px;
+        font-size: 16px;
+        border-radius: 4px 0 0 4px;
+        border: 1px solid #dddddd;
+        border-right: none;
+      }
+
+      button {
+        width: 105px;
+        padding: 14px 0;
+        background-color: #109df2;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+      }
+
+      a {
+        right: 24px;
+        position: absolute;
+        background-color: #109df2;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 4px;
+      }
+
+      .error {
+        font-size: 14px;
+        color: red;
+        width: 505px;
+        margin: 0 auto;
+        text-align: left;
+        height: 18px;
+      }
+    }
+  }
+
+  section {
+    .slider {
+      display: flex;
+      position: relative;
+      height: 500px;
+
+      &__cities {
+        height: 500px;
+        background-position: center;
+        background-size: cover;
+        background-position-y: top;
+        padding: 24px 50px;
+        width: 100%;
+        display: none;
+        cursor: pointer;
+        animation-name: fade;
+        animation-duration: 1s;
+
+        @keyframes fade {
+          from {
+            opacity: 0.8;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        &.active {
+          display: block;
+        }
+
+        &-name {
+          i {
+            svg {
+              width: 34px;
+
+              path {
+                fill: #fff;
+              }
+            }
+          }
+
+          span {
+            font-size: 70px;
+            color: #fff;
+            padding-left: 13px;
+          }
+        }
+
+        &-current_info {
+          padding-top: 20px;
+
+          &-drugger {
+            font-size: 160px;
+            color: #fff;
+          }
+
+          &-weather {
+            font-size: 30px;
+            color: #fff;
+          }
+        }
+      }
+
+      &__dots {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 20px;
+        text-align: center;
+        margin-bottom: 13px;
+        z-index: 10;
+
+        &-slide {
+          width: 15px;
+          height: 15px;
+          background: #fff;
+          display: inline-block;
+          margin-right: 15px;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: 0.5s;
+
+          &:hover {
+            background-color: #109df2;
+            transform: scale(1.3);
+          }
+
+          &.active {
+            background-color: #109df2;
+          }
+        }
+      }
+    }
+  }
+
+  .modal-window {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+
+    &__info {
+      padding: 30px 70px;
+      margin: 30px auto;
+      height: calc(100vh - 60px);
+      max-width: 1200px;
+      background-color: #01142f;
+      color: #b2ccd6;
+      border-radius: 13px;
+      position: relative;
+
+      &-full_wather {
+        display: flex;
+        align-items: center;
+      }
+
+      &__forecast-list {
+        display: flex;
+
+        li {
+          padding: 13px 20px;
+          cursor: pointer;
+          width: 154px;
+          border: 1px solid transparent;
+
+          &.active {
+            border: 1px solid #b2ccd6;
+          }
+
+          &:hover {
+            border: 1px solid #ccc;
+          }
+
+          .date {
+            font-weight: bold;
+            padding-bottom: 12px;
+          }
+
+          .temp {
+            display: flex;
+            justify-content: space-between;
+
+            &_info {
+              font-size: 36px;
+            }
+
+            img {
+              height: 30px;
+            }
+          }
+        }
+      }
+
+      &__hrdetails {
+        display: flex;
+        margin-top: 20px;
+
+        li {
+          padding: 5px 10px;
+          border-left: 1px solid;
+          width: 135px;
+
+          &:last-of-type {
+            border-right: 1px solid;
+          }
+
+          img {
+            width: 30px;
+          }
+
+          .time {
+            font-weight: bold;
+          }
+
+          .skytext {
+            font-size: 14px;
+            padding: 10px 0 5px 0;
+            white-space: nowrap;
+          }
+
+          .temp_info {
+            font-size: 23px;
+          }
+        }
+      }
+
+      .back {
+        position: absolute;
+        top: 22px;
+        right: 34px;
+        cursor: pointer;
+
+        svg {
+          width: 30px;
+        }
+      }
+    }
+
+    &__current_temp {
+      font-size: 160px;
+      margin: 10px 30px 10px 0;
+    }
+
+    &__wather-info {
+      span {
+        font-size: 36px;
+      }
+
+      ul {
+        display: flex;
+        width: 510px;
+        white-space: normal;
+        flex-wrap: wrap;
+
+        li {
+          width: 32%;
+          padding-right: 10px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .container {
+    .modal-window {
+      &__info {
+        max-width: 1024px;
+
+        &__hrdetails {
+          li {
+            width: 119px;
+
+            .skytext {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+
+      &__current_temp {
+        font-size: 140px;
+        margin: 10px 20px 10px 0;
+      }
+
+      &__wather-info {
+        span {
+          font-size: 30px;
+        }
+
+        ul {
+          width: 480px;
+
+          li {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .container {
+    header {
+      .city_search {
+        padding: 10px 0 20px 0;
+        height: 70px;
+
+        input {
+          padding: 10px 0 10px 12px;
+          font-size: 14px;
+          width: 300px;
+        }
+
+        button,
+        a {
+          width: 89px;
+          font-size: 14px;
+          padding: 11px 0;
+        }
+
+        .error {
+          font-size: 11px;
+          width: 389px;
+          height: 14px;
+        }
+      }
+    }
+
+    section {
+      .slider {
+        &__cities {
+          &-name {
+            i {
+              svg {
+                width: 23px;
+              }
+            }
+            span {
+              font-size: 54px;
+            }
+          }
+
+          &-current_info {
+            padding-top: 10px;
+            &-drugger {
+              font-size: 130px;
+            }
+            &-weather {
+              font-size: 25px;
+            }
+          }
+        }
+
+        &__dots {
+          &-slide {
+            width: 12px;
+            height: 12px;
+          }
+        }
+      }
+    }
+
+    .modal-window {
+      &__info {
+        max-width: 768px;
+        padding: 30px 50px;
+
+        &__hrdetails {
+          li {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 78px;
+
+            .skytext {
+              white-space: normal;
+            }
+
+            .time {
+              font-size: 12px;
+            }
+          }
+        }
+
+        &__forecast-list {
+          display: flex;
+
+          li {
+            padding: 7px 11px;
+            width: 110px;
+
+            .date {
+              font-size: 13px;
+            }
+
+            .temp {
+              &_info {
+                font-size: 26px;
+              }
+
+              img {
+                height: 25px;
+              }
+            }
+          }
+        }
+      }
+
+      &__current_temp {
+        font-size: 110px;
+        margin: 10px 20px 40px 0;
+      }
+
+      &__wather-info {
+        span {
+          font-size: 26px;
+        }
+
+        ul {
+          width: 350px;
+
+          li {
+            width: 50%;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 778px) {
+  .container {
+    header {
+      .city_search {
+        padding: 12px 0 15px 0;
+        height: 66px;
+
+        input {
+          padding: 6px 0 6px 9px;
+          font-size: 11px;
+          width: 200px;
+        }
+
+        button,
+        a {
+          width: 60px;
+          font-size: 11px;
+          padding: 7px 0;
+        }
+
+        .error {
+          font-size: 9px;
+          width: 260px;
+          height: 11px;
+        }
+      }
+    }
+
+    section {
+      .slider {
+        &__cities {
+          &-name {
+            i {
+              svg {
+                width: 18px;
+              }
+            }
+            span {
+              font-size: 44px;
+            }
+          }
+
+          &-current_info {
+            padding-top: 8px;
+            &-drugger {
+              font-size: 110px;
+            }
+            &-weather {
+              font-size: 20px;
+            }
+          }
+        }
+
+        &__dots {
+          &-slide {
+            width: 10px;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+    .modal-window {
+      &__info {
+        min-width: 320px;
+        margin: 30px;
+        padding: 0 20px;
+
+        &__hrdetails {
+          display: block;
+          li {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0;
+            border-top: 1px solid;
+            border-left: none;
+            align-items: center;
+
+            &:last-of-type {
+              border-right: none;
+            }
+
+            .skytext {
+              white-space: normal;
+              width: 100px;
+            }
+
+            .time {
+              font-size: 12px;
+              width: 40px;
+            }
+
+            .temp_info {
+              width: 35px;
+            }
+          }
+        }
+
+        &__forecast-list {
+          display: flex;
+
+          li {
+            padding: 5px;
+            width: 47px;
+
+            .date {
+              font-size: 13px;
+              padding: 0;
+            }
+
+            .temp {
+              display: none;
+            }
+          }
+        }
+
+        .back {
+          top: 15px;
+          right: 24px;
+
+          svg {
+            width: 20px;
+          }
+        }
+      }
+
+      &__current_temp {
+        font-size: 80px;
+        margin: 10px 20px 20px 0;
+      }
+
+      &__wather-info {
+        span {
+          font-size: 20px;
+        }
+
+        ul {
+          width: 200px;
+
+          li {
+            width: 100%;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 478px) {
+  .container {
+    header {
+      .city_search {
+        button,
+        a {
+          width: 50px;
+          font-size: 11px;
+          padding: 7px 0;
+        }
+
+        a {
+          position: inherit;
+          margin-left: 5px;
+          padding: 7px 5px;
+        }
+
+        .error {
+          width: 296px;
+        }
+      }
+    }
+
+    section {
+      .slider {
+        &__cities {
+          padding: 24px 20px;
+          &-name {
+            i {
+              svg {
+                width: 12px;
+              }
+            }
+            span {
+              font-size: 30px;
+            }
+          }
+
+          &-current_info {
+            padding-top: 8px;
+            &-drugger {
+              font-size: 80px;
+            }
+            &-weather {
+              font-size: 13px;
+            }
+          }
+        }
+
+        &__dots {
+          &-slide {
+            width: 10px;
+            height: 10px;
+          }
+        }
+      }
+    }
+
+    .modal-window {
+      &__info {
+        margin: 30px 10px;
+        padding: 10px 10px;
+        min-width: 280px;
+
+        .back {
+          top: 7px;
+          right: 13px;
+
+          svg {
+            width: 14px;
+          }
+        }
+      }
+
+      &__current_temp {
+        font-size: 60px;
+      }
+
+      &__wather-info {
+        span {
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        ul {
+          width: 120px;
+        }
+      }
+    }
+  }
+}
