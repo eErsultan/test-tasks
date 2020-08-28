@@ -1,15 +1,15 @@
-// import Moscow from "../../assets/img/Moscow.jpg";
-// import Paris from "../../assets/img/Paris.jpg";
-// import London from "../../assets/img/London.jpg";
-// import NewYork from "../../assets/img/New-york.jpg";
-// import Beijing from "../../assets/img/Beijing.jpg";
+import Moscow from "../../assets/img/Moscow.jpg";
+import Paris from "../../assets/img/Paris.jpg";
+import London from "../../assets/img/London.jpg";
+import NewYork from "../../assets/img/New-york.jpg";
+import Beijing from "../../assets/img/Beijing.jpg";
 
 let cities = [
-  { id: 1, name: "Москва", src: null },
-  { id: 2, name: "Париж", src: null },
-  { id: 3, name: "Лондон", src: null },
-  { id: 4, name: "Нью-Йорк", src: null },
-  { id: 5, name: "Пекин", src: null },
+  { id: 1, name: "Москва", src: Moscow },
+  { id: 2, name: "Париж", src: Paris },
+  { id: 3, name: "Лондон", src: London },
+  { id: 4, name: "Нью-Йорк", src: NewYork },
+  { id: 5, name: "Пекин", src: Beijing },
 ];
 
 const initialState = {
