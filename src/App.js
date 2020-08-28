@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { Login, Registr, HomePageContainer } from "./components";
+import { getAllUsersLocStor } from "./redux/actions/userActions";
 
 function App() {
-  const [userEmail, setUserEmail] = useState(null);
-  const [user, setUser] = useState([null]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem("myDataInLocalStorage"));
-    setUser(users);
+    dispatch(getAllUsersLocStor());
   }, []);
-
-  const getUserEmail = (email) => {
-    setUserEmail(email);
-  };
 
   return (
     <div className="App">
       <div className="container">
         <Route exact path="/">
-          <HomePageContainer user={user} userEmail={userEmail} />
+          <HomePageContainer />
         </Route>
         <Route exact path="/auth">
-          <Login getUserEmail={getUserEmail} />
+          <Login />
         </Route>
         <Route path="/registr" component={Registr} />
       </div>

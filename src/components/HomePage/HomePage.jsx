@@ -16,14 +16,14 @@ function HomePage(props) {
             onChange={(e) => props.onChange(e.currentTarget.value)}
             placeholder="Найти город"
           />
-          <button onClick={props.sendGetCity}>Найти</button>
+          <button onClick={props.addCity}>Найти</button>
           {props.isAuth && (
             <Fragment>
               <Link to="/auth">Войти</Link>
               <div className="error">Войдите в аккаунт</div>
             </Fragment>
           )}
-          {props.error !== 200 && (
+          {props.error === 404 && (
             <div className="error">По вашему запросу ничего не найдено</div>
           )}
         </div>

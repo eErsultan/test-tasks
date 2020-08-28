@@ -1,4 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+
+import Loader from "./Loader";
 
 function ModalWindow({
   day,
@@ -8,6 +11,7 @@ function ModalWindow({
   forecastFiveDay,
   forecastDaily,
 }) {
+  const { isLoaded } = useSelector(({ wather }) => wather);
   return (
     <div className="modal-window">
       <div className="modal-window__info">
@@ -27,48 +31,56 @@ function ModalWindow({
             </ul>
           </div>
         </div>
-        <ul className="modal-window__info__forecast-list">
-          {forecastFiveDay.map((i, index) => (
-            <li
-              key={i.dt}
-              onClick={() => chooseDay(index, i.dt_txt.split(" ")[0])}
-              className={day === index ? "active" : null}
-            >
-              <div className="date">{`${i.dt_txt.split(" ")[0].split("-")[2]}.${
-                i.dt_txt.split(" ")[0].split("-")[1]
-              }`}</div>
-              <div className="temp">
-                <div className="temp_info">
-                  <div className="temp_info-max">
-                    {Math.round(i.main.temp_max - 273)}°
+        {isLoaded ? (
+          <Loader />
+        ) : (
+          <Fragment>
+            <ul className="modal-window__info__forecast-list">
+              {forecastFiveDay.map((i, index) => (
+                <li
+                  key={i.dt}
+                  onClick={() => chooseDay(index, i.dt_txt.split(" ")[0])}
+                  className={day === index ? "active" : null}
+                >
+                  <div className="date">{`${
+                    i.dt_txt.split(" ")[0].split("-")[2]
+                  }.${i.dt_txt.split(" ")[0].split("-")[1]}`}</div>
+                  <div className="temp">
+                    <div className="temp_info">
+                      <div className="temp_info-max">
+                        {Math.round(i.main.temp_max - 273)}°
+                      </div>
+                      <div className="temp_info-min">
+                        {Math.round(i.main.temp_min - 273)}°
+                      </div>
+                    </div>
+                    <img
+                      src={`https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png`}
+                      alt="icon wather"
+                    />
                   </div>
-                  <div className="temp_info-min">
-                    {Math.round(i.main.temp_min - 273)}°
+                </li>
+              ))}
+            </ul>
+            <ul className="modal-window__info__hrdetails">
+              {forecastDaily.map((i) => (
+                <li key={i.dt}>
+                  <div className="time">{`${
+                    i.dt_txt.split(" ")[1].split(":")[0]
+                  }:${i.dt_txt.split(" ")[1].split(":")[1]}`}</div>
+                  <img
+                    src={`https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png`}
+                    alt="icon wather"
+                  />
+                  <div className="skytext">{i.weather[0].description}</div>
+                  <div className="temp_info">
+                    {Math.round(i.main.temp - 273)}°
                   </div>
-                </div>
-                <img
-                  src={`https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png`}
-                  alt="icon wather"
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
-        <ul className="modal-window__info__hrdetails">
-          {forecastDaily.map((i) => (
-            <li key={i.dt}>
-              <div className="time">{`${i.dt_txt.split(" ")[1].split(":")[0]}:${
-                i.dt_txt.split(" ")[1].split(":")[1]
-              }`}</div>
-              <img
-                src={`https://openweathermap.org/img/wn/${i.weather[0].icon}@2x.png`}
-                alt="icon wather"
-              />
-              <div className="skytext">{i.weather[0].description}</div>
-              <div className="temp_info">{Math.round(i.main.temp - 273)}°</div>
-            </li>
-          ))}
-        </ul>
+                </li>
+              ))}
+            </ul>
+          </Fragment>
+        )}
         <div className="back" onClick={toggleModal}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

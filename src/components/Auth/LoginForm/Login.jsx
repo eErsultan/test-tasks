@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Field, ErrorMessage, Form } from "formik";
+import { useDispatch } from "react-redux";
+
+import { setUserr } from "../../../redux/actions/citiesActions";
 
 function Login(props) {
+  const dispatch = useDispatch();
+
   const setEmail = () => {
-    props.getUserEmail(props.values.email);
+    dispatch(setUserr(props.values.email));
   };
 
   if (props.values.success) return <Redirect to="/" />;
