@@ -15,12 +15,8 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <Route exact path="/">
-          <HomePageContainer />
-        </Route>
-        <Route exact path="/auth">
-          <Login />
-        </Route>
+        <Route exact path="/" component={HomePageContainer} />
+        <Route exact path="/auth" component={Login} />
         <Route path="/registr" component={Registr} />
       </div>
     </div>

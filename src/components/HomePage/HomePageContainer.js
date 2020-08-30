@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 
 import {
   getWatherInfo,
   getForecast,
   getWatherFullDay,
+  close,
 } from "../../redux/actions/watherActions";
 import { addNewCity } from "../../redux/actions/citiesActions";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 import HomePage from "./HomePage";
 
-function HomePageContainer() {
+function HomePageContainer(props) {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState("");
-  const [dot, setDot] = useState(1);
   const [day, setDay] = useState(0);
-  const [toggleModalWindow, setToggleModalWindow] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
 
-  const { allUsers } = useSelector(({ users }) => users);
-  const { citiess, email, error } = useSelector(({ cities }) => cities);
-  const { watherInfo, forecastFiveDay, forecastDaily } = useSelector(
-    ({ wather }) => wather
-  );
+  const { citiess, error } = useSelector(({ cities }) => cities);
+  const {
+    watherInfo,
+    forecastFiveDay,
+    forecastDaily,
+    toggleModalWindow,
+    dot,
+  } = useSelector(({ wather }) => wather);
 
   useEffect(() => {
-    dispatch(getWatherInfo("Moscow"));
+    dispatch(getWatherInfo("Moscow", 1));
   }, []);
 
   const onChange = (value) => {
@@ -35,15 +36,15 @@ function HomePageContainer() {
   };
 
   const changeSlide = (id) => {
-    setDot(id);
-    dispatch(getWatherInfo(citiess[id - 1].name));
+    dispatch(getWatherInfo(citiess[id - 1].name, id));
   };
 
   const toggleModal = (cityName) => {
-    setToggleModalWindow(!toggleModalWindow);
-    if (!toggleModalWindow) {
-      dispatch(getForecast(cityName));
-    }
+    dispatch(getForecast(cityName));
+  };
+
+  const closeModal = () => {
+    dispatch(close());
   };
 
   const chooseDay = (index, date) => {
@@ -52,22 +53,11 @@ function HomePageContainer() {
   };
 
   const addCity = () => {
-    if (!email) {
-      setIsAuth(true);
-      return;
-    }
-    dispatch(addNewCity(value));
-    setDot(citiess.length + 1);
-    toggleModal(watherInfo.name);
+    dispatch(addNewCity(value, citiess.length + 1));
   };
-
-  if (allUsers.length < 0) {
-    return <Redirect to="/auth" />;
-  }
 
   return (
     <HomePage
-      isAuth={isAuth}
       cities={citiess}
       value={value}
       dot={dot}
@@ -81,9 +71,16 @@ function HomePageContainer() {
       changeSlide={changeSlide}
       chooseDay={chooseDay}
       toggleModal={toggleModal}
+      closeModal={closeModal}
       addCity={addCity}
     />
   );
 }
 
-export default HomePageContainer;
+let mapStateToProps = (state) => ({
+  email: state.cities.email,
+});
+
+let withAuthComponent = withAuthRedirect(HomePageContainer);
+
+export default connect(mapStateToProps)(withAuthComponent);

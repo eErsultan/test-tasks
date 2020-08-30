@@ -4,6 +4,8 @@ const initialState = {
   forecastFiveDay: [],
   forecastDaily: [],
   isLoaded: false,
+  toggleModalWindow: false,
+  dot: 1,
 };
 
 const watherInfo = (state = initialState, actions) => {
@@ -13,6 +15,7 @@ const watherInfo = (state = initialState, actions) => {
         ...state,
         watherInfo: actions.payload,
         isLoaded: false,
+        dot: actions.id,
       };
     case "SET_FORECAST":
       let forecastFiveDay = actions.payload.list.filter(
@@ -28,6 +31,7 @@ const watherInfo = (state = initialState, actions) => {
         forecast: actions.payload.list,
         forecastFiveDay,
         forecastDaily,
+        toggleModalWindow: true,
         isLoaded: false,
       };
     case "GET_WATHER_FULL_DAY": {
@@ -43,6 +47,11 @@ const watherInfo = (state = initialState, actions) => {
       return {
         ...state,
         isLoaded: actions.payload,
+      };
+    case "CLOSE_MODAL":
+      return {
+        ...state,
+        toggleModalWindow: false,
       };
     default:
       return state;

@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
 import classnames from "classnames";
 
 import SliderCity from "./SliderCity";
@@ -17,12 +16,12 @@ function HomePage(props) {
             placeholder="Найти город"
           />
           <button onClick={props.addCity}>Найти</button>
-          {props.isAuth && (
+          {/* {props.isAuth && (
             <Fragment>
               <Link to="/auth">Войти</Link>
               <div className="error">Войдите в аккаунт</div>
             </Fragment>
-          )}
+          )} */}
           {props.error === 404 && (
             <div className="error">По вашему запросу ничего не найдено</div>
           )}
@@ -56,7 +55,7 @@ function HomePage(props) {
         <ModalWindow
           day={props.day}
           chooseDay={props.chooseDay}
-          toggleModal={props.toggleModal}
+          closeModal={props.closeModal}
           watherInfo={props.watherInfo}
           forecastFiveDay={props.forecastFiveDay}
           forecastDaily={props.forecastDaily}

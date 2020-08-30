@@ -1,28 +1,21 @@
-import axios from "axios";
+import { getWather, forecast } from "../../api/api";
 
-export const getWatherInfo = (cityName) => (dispatch) => {
+export const getWatherInfo = (cityName, id) => (dispatch) => {
   dispatch(setLoaded(true));
-  axios
-    .get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=e75f12938219a9653433055c7a9cb54a`
-    )
-    .then((res) => {
-      dispatch(setWatherInfo(res.data));
-    });
+  getWather(cityName).then((data) => {
+    dispatch(setWatherInfo(data, id));
+  });
 };
 
 export const getForecast = (cityName) => (dispatch) => {
   dispatch(setLoaded(true));
-  axios
-    .get(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=e75f12938219a9653433055c7a9cb54a`
-    )
-    .then((res) => dispatch(setForecast(res.data)));
+  forecast(cityName).then((data) => dispatch(setForecast(data)));
 };
 
-export const setWatherInfo = (watherCity) => ({
+export const setWatherInfo = (watherCity, id) => ({
   type: "SET_WATHER_INFO",
   payload: watherCity,
+  id,
 });
 
 export const setForecast = (watherCity) => ({
@@ -38,4 +31,8 @@ export const getWatherFullDay = (date) => ({
 const setLoaded = (payload) => ({
   type: "SET_LOADED",
   payload,
+});
+
+export const close = () => ({
+  type: "CLOSE_MODAL",
 });

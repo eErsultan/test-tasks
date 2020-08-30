@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import { newCity } from "../../api/api";
 import { getWatherInfo, getForecast } from "./watherActions";
 
 export const setUserr = (email) => ({
@@ -7,19 +6,16 @@ export const setUserr = (email) => ({
   payload: email,
 });
 
-export const addNewCity = (newCityName) => (dispatch) => {
-  axios
-    .get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${newCityName}&appid=e75f12938219a9653433055c7a9cb54a`
-    )
-    .then((res) => {
+export const addNewCity = (newCityName, id) => (dispatch) => {
+  newCity(newCityName).then((res) => {
+    if (res === 404) {
+      dispatch(requestError(res));
+    } else {
       dispatch(requestSuccessful(res.data));
-      dispatch(getWatherInfo(newCityName));
+      dispatch(getWatherInfo(newCityName, id));
       dispatch(getForecast(newCityName));
-    })
-    .catch((err) => {
-      dispatch(requestError(err.response.status));
-    });
+    }
+  });
 };
 
 const requestSuccessful = (data) => ({
